@@ -22,7 +22,7 @@ async def _send_expiring_notification(message: Message, l10n: FluentLocalization
     """
     msg = await message.reply(l10n.format_value("sent-confirmation"))
     if config.remove_sent_confirmation:
-        await sleep(5.0)
+        await sleep(10.0)
         await msg.delete()
 
 
@@ -71,7 +71,7 @@ async def text_message(message: Message, bot: Bot, l10n: FluentLocalization):
             link += f'<a href="tg://user?id={message.from_user.full_name}"></a>'
         await bot.send_message(
             config.admin_chat_id,
-            link + ':\n\n' + message.html_text, parse_mode="HTML"
+            '<b>' + l10n.format_value("new-message") + '</b>\n' + link + '\n\n' + message.html_text, parse_mode="HTML"
         )
         if config.send_sent_confirmation:
             create_task(_send_expiring_notification(message, l10n))
