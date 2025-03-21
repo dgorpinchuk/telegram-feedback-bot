@@ -66,7 +66,7 @@ async def text_message(message: Message, bot: Bot, l10n: FluentLocalization):
     else:
         await bot.send_message(
             config.admin_chat_id,
-            f"<b>" + l10n.format_value("new-message") + f"</b>\nTG: @{message.from_user.username or ''}\n\n" + message.html_text + f"\n\n#id{message.from_user.id}", parse_mode="HTML"
+            f"<b>" + l10n.format_value("new-message") + f"</b>\n@{message.from_user.username or ''}\n\n" + message.html_text + f"\n\n#id{message.from_user.id}", parse_mode="HTML"
         )
         create_task(_send_expiring_notification(message, l10n))
 
